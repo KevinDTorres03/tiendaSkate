@@ -12,7 +12,7 @@ import java.util.Set;
 
 
 @Entity
-@JsonIgnoreProperties("skates")
+//@JsonIgnoreProperties("skates")
 public class Category implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
