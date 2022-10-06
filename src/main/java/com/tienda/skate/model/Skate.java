@@ -34,7 +34,7 @@ public class Skate implements Serializable {
     @OneToMany(mappedBy = "skate", cascade = {CascadeType.PERSIST})
     @JsonIgnoreProperties({"skate", "messages"})
     private List<Reservation> reservations;
-
+    //geter and seter
     public List<Reservation> getReservations() {
         return reservations;
     }
