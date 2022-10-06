@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.tienda</groupId>
 	<artifactId>skate</artifactId>
-	<version>prod</version>
+	<version>prod2</version>
 	<name>skate</name>
 	<description>Skate Spring Boot</description>
 	<properties>

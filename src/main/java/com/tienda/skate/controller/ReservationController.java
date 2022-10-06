@@ -22,17 +22,10 @@ public class ReservationController {
     public List<Reservation> list() {
         return service.listAll();
     }
-
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Reservation> list2() {
         return service.listAll();
-    }
-
-    @PostMapping("/all")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<Reservation> list2() {
-        return service.getAll();
     }
 
     @GetMapping("/{id}")

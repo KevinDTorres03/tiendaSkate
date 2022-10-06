@@ -18,26 +18,20 @@ public class CategoryController {
     @Autowired
     private CategoryService service;
 
+    public CategoryController() {
+    }
+
     @GetMapping("/all")
     public List<Category> list() {
         return service.listAll();
     }
 
-    public CategoryController() {
-    }
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Category> list2() {
         return service.listAll();
     }
-
-    @PostMapping("/all")
-    @ResponseStatus(HttpStatus.CREATED)
-    public List<Category> list2() {
-        return service.getAll();
-    }
-
     @GetMapping("/{id}")
     public ResponseEntity<Category> get(@PathVariable Integer id) {
         try {
