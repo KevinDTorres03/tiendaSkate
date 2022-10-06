@@ -18,9 +18,18 @@ public class AdminController {
     @Autowired
     private AdminService service;
 
+    public AdminController() {
+    }
+
     @GetMapping("/all")
     public List<Admin> list() {
-        return service.getAll();
+        return service.listAll();
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Admin> list2() {
+        return service.listAll();
     }
 
     @PostMapping("/all")

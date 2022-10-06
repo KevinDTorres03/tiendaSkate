@@ -14,7 +14,7 @@ public class MessageService {
     @Autowired
     private MessageRepository messageRepository;
 
-    public List<Message> getAll() {
+    public List<Message> listAll() {
         return messageRepository.getAll();
     }
 
@@ -33,6 +33,9 @@ public class MessageService {
                 return messageRepository.save(message);
             }
         }
+    }
+
+    public MessageService() {
     }
 
     public Message Update(Message message) {

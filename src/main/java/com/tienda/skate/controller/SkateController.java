@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/Skate")
+@RequestMapping("/api/Skateboard")
 @CrossOrigin(origins = "*")
 public class SkateController {
 
@@ -20,13 +20,13 @@ public class SkateController {
 
     @GetMapping("/all")
     public List<Skate> list() {
-        return service.getAll();
+        return service.listAll();
     }
 
     @PostMapping("/all")
     @ResponseStatus(HttpStatus.CREATED)
     public List<Skate> list2() {
-        return service.getAll();
+        return service.listAll();
     }
 
     @GetMapping("/{id}")
@@ -43,6 +43,9 @@ public class SkateController {
     @ResponseStatus(HttpStatus.CREATED)
     public Skate add(@RequestBody Skate skate) {
         return service.save(skate);
+    }
+
+    public SkateController() {
     }
 
     @PutMapping("/{id}")

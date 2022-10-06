@@ -14,6 +14,9 @@ public class SkateRepository {
     @Autowired
     private SkateRepositoryInterface skateRepositoryInterface;
 
+    public SkateRepository() {
+    }
+
     public List<Skate> getAll(){
         return (List<Skate>) skateRepositoryInterface.findAll();
     }

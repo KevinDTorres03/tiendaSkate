@@ -14,6 +14,9 @@ public class AdminRepository {
     @Autowired
     private AdminRepositoryInterface adminRepositoryInterface;
 
+    public AdminRepository() {
+    }
+
     public List<Admin> getAll(){
         return (List<Admin>) adminRepositoryInterface.findAll();
     }

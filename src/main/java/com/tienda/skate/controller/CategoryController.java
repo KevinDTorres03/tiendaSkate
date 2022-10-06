@@ -20,7 +20,16 @@ public class CategoryController {
 
     @GetMapping("/all")
     public List<Category> list() {
-        return service.getAll();
+        return service.listAll();
+    }
+
+    public CategoryController() {
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Category> list2() {
+        return service.listAll();
     }
 
     @PostMapping("/all")

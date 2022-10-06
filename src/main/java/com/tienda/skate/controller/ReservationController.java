@@ -20,7 +20,13 @@ public class ReservationController {
 
     @GetMapping("/all")
     public List<Reservation> list() {
-        return service.getAll();
+        return service.listAll();
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Reservation> list2() {
+        return service.listAll();
     }
 
     @PostMapping("/all")
@@ -64,4 +70,6 @@ public class ReservationController {
         return service.delete(id);
     }
 
+    public ReservationController() {
+    }
 }

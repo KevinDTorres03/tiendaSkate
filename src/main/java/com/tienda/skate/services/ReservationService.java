@@ -14,7 +14,10 @@ public class ReservationService {
     @Autowired
     private ReservationRepository reservationRepository;
 
-    public List<Reservation> getAll() {
+    public ReservationService() {
+    }
+
+    public List<Reservation> listAll() {
         return reservationRepository.getAll();
     }
 

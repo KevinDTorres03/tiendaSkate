@@ -15,6 +15,9 @@ public class MessageRepository {
     @Autowired
     private MessageRepositoryInterface messageRepositoryInterface;
 
+    public MessageRepository() {
+    }
+
     public List<Message> getAll(){
         return (List<Message>) messageRepositoryInterface.findAll();
     }

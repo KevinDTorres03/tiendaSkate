@@ -26,4 +26,7 @@ public class ReservationRepository {
     public void delete(Reservation reservation){
         reservationRepositoryInterface.delete(reservation);
     }
+
+    public ReservationRepository() {
+    }
 }

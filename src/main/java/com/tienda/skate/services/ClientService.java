@@ -15,6 +15,9 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
+    public ClientService() {
+    }
+
     public List<Client> listAll() {
         return clientRepository.getAll();
     }

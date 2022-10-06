@@ -20,7 +20,16 @@ public class MessageController {
 
     @GetMapping("/all")
     public List<Message> list() {
-        return service.getAll();
+        return service.listAll();
+    }
+
+    public MessageController() {
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Message> list2() {
+        return service.listAll();
     }
 
     @PostMapping("/all")
