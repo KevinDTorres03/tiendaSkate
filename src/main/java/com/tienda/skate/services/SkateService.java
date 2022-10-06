@@ -14,7 +14,10 @@ public class SkateService {
     @Autowired
     private SkateRepository skateRepository;
 
-    public List<Skate> getAll() {
+    public SkateService() {
+    }
+
+    public List<Skate> listAll() {
         return skateRepository.getAll();
     }
 

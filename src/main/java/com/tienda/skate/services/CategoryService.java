@@ -14,12 +14,15 @@ public class CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-    public List<Category> getAll() {
+    public List<Category> listAll() {
         return categoryRepository.getAll();
     }
 
     public Optional<Category> get(int id) {
         return categoryRepository.getCategory(id);
+    }
+
+    public CategoryService() {
     }
 
     public Category save(Category category) {

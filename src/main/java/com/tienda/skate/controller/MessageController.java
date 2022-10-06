@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Message")
+@CrossOrigin(origins = "*")
 public class MessageController {
 
     @Autowired
@@ -19,7 +20,16 @@ public class MessageController {
 
     @GetMapping("/all")
     public List<Message> list() {
-        return service.getAll();
+        return service.listAll();
+    }
+
+    public MessageController() {
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Message> list2() {
+        return service.listAll();
     }
 
     @GetMapping("/{id}")
@@ -33,6 +43,7 @@ public class MessageController {
     }
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public Message add(@RequestBody Message message) {
         return service.save(message);
     }
@@ -47,10 +58,13 @@ public class MessageController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @PutMapping("/update")
+    public Message update(@RequestBody Message message) {
+        return service.Update(message);
+    }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public boolean delete(@PathVariable Integer id) {
+        return service.delete(id);
     }
 
 }

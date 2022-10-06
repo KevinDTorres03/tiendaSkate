@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Reservation")
+@CrossOrigin(origins = "*")
 public class ReservationController {
 
     @Autowired
@@ -19,20 +20,27 @@ public class ReservationController {
 
     @GetMapping("/all")
     public List<Reservation> list() {
-        return service.getAll();
+        return service.listAll();
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Reservation> list2() {
+        return service.listAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> get(@PathVariable Integer id) {
+    public ResponseEntity<Reservation> get(@PathVariable Integer id) {
         try {
             Reservation reservation = service.get(id).get();
             return new ResponseEntity<Reservation>(reservation, HttpStatus.OK);
         } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return new ResponseEntity<Reservation>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public Reservation add(@RequestBody Reservation reservation) {
         return service.save(reservation);
     }
@@ -47,10 +55,15 @@ public class ReservationController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @PutMapping("/update")
+    public Reservation update(@RequestBody Reservation reservation) {
+        return service.Update(reservation);
+    }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public boolean delete(@PathVariable Integer id) {
+        return service.delete(id);
     }
 
+    public ReservationController() {
+    }
 }

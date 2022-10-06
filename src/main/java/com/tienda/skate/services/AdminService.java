@@ -10,12 +10,13 @@ import java.util.Optional;
 
 @Service
 public class AdminService {
-
     @Autowired
-
     private AdminRepository adminRepository;
 
-    public List<Admin> getAll() {
+    public AdminService() {
+    }
+
+    public List<Admin> listAll() {
         return adminRepository.getAll();
     }
 

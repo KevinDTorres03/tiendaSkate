@@ -14,6 +14,9 @@ public class ClientRepository {
     @Autowired
     private ClientRepositoryInterface clientRepositoryInterface;
 
+    public ClientRepository() {
+    }
+
     public List<Client> getAll(){
         return (List<Client>) clientRepositoryInterface.findAll();
     }
