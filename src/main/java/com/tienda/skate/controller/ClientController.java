@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Client")
+@CrossOrigin(origins = "*")
 public class ClientController {
 
     @Autowired
@@ -19,6 +20,12 @@ public class ClientController {
 
     @GetMapping("/all")
     public List<Client> list() {
+        return service.listAll();
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Client> list2() {
         return service.listAll();
     }
 
@@ -33,6 +40,7 @@ public class ClientController {
     }
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public Client add(@RequestBody Client client) {
         return service.save(client);
     }
@@ -47,10 +55,13 @@ public class ClientController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
-    @DeleteMapping("/api/Client/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    @PutMapping("/update")
+    public Client update(@RequestBody Client client) {
+        return service.Update(client);
+    }
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Integer id) {
+        return service.delete(id);
     }
 
 }

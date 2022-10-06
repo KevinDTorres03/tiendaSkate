@@ -11,7 +11,8 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@RequestMapping("/api/Skateboard")
+@RequestMapping("/api/Skate")
+@CrossOrigin(origins = "*")
 public class SkateController {
 
     @Autowired
@@ -22,35 +23,46 @@ public class SkateController {
         return service.getAll();
     }
 
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Skate> list2() {
+        return service.getAll();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Skate> get(@PathVariable Integer id) {
         try {
-            Skate reservation = service.get(id);
-            return new ResponseEntity<Skate>(reservation, HttpStatus.OK);
+            Skate skate = service.get(id);
+            return new ResponseEntity<Skate>(skate, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<Skate>(HttpStatus.NOT_FOUND);
         }
     }
 
     @PostMapping("/save")
-    public Skate add(@RequestBody Skate reservation) {
-        return service.save(reservation);
+    @ResponseStatus(HttpStatus.CREATED)
+    public Skate add(@RequestBody Skate skate) {
+        return service.save(skate);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Skate reservation, @PathVariable Integer id) {
+    public ResponseEntity<?> update(@RequestBody Skate skate, @PathVariable Integer id) {
         try {
-            Skate existSkate = service.get(id);
-            service.save(reservation);
+            Skate existSkate = service.get(id);//deberia ser un optional
+            service.save(skate);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    @PutMapping("/update")
+    public Skate update(@RequestBody Skate skate) {
+        return service.update(skate);
     }
 
+    @DeleteMapping("/{id}")
+    public boolean delete(@PathVariable Integer id) {
+        return service.delete(id);
+    }
 }
