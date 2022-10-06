@@ -32,6 +32,12 @@ public class CategoryController {
         return service.listAll();
     }
 
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Category> list2() {
+        return service.getAll();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Category> get(@PathVariable Integer id) {
         try {

@@ -32,6 +32,12 @@ public class AdminController {
         return service.listAll();
     }
 
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Admin> list2() {
+        return service.getAll();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Admin> get(@PathVariable Integer id) {
         try {

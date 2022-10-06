@@ -29,6 +29,12 @@ public class ReservationController {
         return service.listAll();
     }
 
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Reservation> list2() {
+        return service.getAll();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Reservation> get(@PathVariable Integer id) {
         try {

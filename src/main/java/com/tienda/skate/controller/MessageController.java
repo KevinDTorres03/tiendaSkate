@@ -32,6 +32,12 @@ public class MessageController {
         return service.listAll();
     }
 
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Message> list2() {
+        return service.getAll();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<Message> get(@PathVariable Integer id) {
         try {
