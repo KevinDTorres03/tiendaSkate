@@ -2,7 +2,7 @@ package com.tienda.skate.controller;
 
 import com.tienda.skate.model.Category;
 import com.tienda.skate.services.CategoryService;
-import org.springframework.beans.factory.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +12,7 @@ import java.util.NoSuchElementException;
 
 @RestController
 @RequestMapping("/api/Category")
+@CrossOrigin(origins = "*")
 public class CategoryController {
 
     @Autowired
@@ -19,6 +20,12 @@ public class CategoryController {
 
     @GetMapping("/all")
     public List<Category> list() {
+        return service.getAll();
+    }
+
+    @PostMapping("/all")
+    @ResponseStatus(HttpStatus.CREATED)
+    public List<Category> list2() {
         return service.getAll();
     }
 
@@ -33,6 +40,7 @@ public class CategoryController {
     }
 
     @PostMapping("/save")
+    @ResponseStatus(HttpStatus.CREATED)
     public Category add(@RequestBody Category category) {
         return service.save(category);
     }
@@ -47,10 +55,13 @@ public class CategoryController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
-
+    @PutMapping("/update")
+    public Category update(@RequestBody Category category) {
+        return service.update(category);
+    }
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Integer id) {
-        service.delete(id);
+    public boolean delete(@PathVariable Integer id) {
+        return service.delete(id);
     }
 
 }
