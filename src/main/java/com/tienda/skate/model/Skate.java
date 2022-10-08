@@ -9,7 +9,6 @@ import java.util.List;
 
 @Entity
 public class Skate implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
