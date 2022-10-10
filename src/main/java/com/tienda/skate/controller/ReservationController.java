@@ -44,16 +44,6 @@ public class ReservationController {
         return service.save(reservation);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Reservation reservation, @PathVariable Integer id) {
-        try {
-            Reservation existReservation = service.get(id).get();
-            service.save(reservation);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
     @PutMapping("/update")
     public Reservation update(@RequestBody Reservation reservation) {
         return service.Update(reservation);

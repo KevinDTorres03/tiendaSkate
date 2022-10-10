@@ -48,16 +48,6 @@ public class ClientController {
         return service.save(client);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Client client, @PathVariable Integer id) {
-        try {
-            Client existClient = service.get(id).get();
-            service.save(client);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
     @PutMapping("/update")
     public Client update(@RequestBody Client client) {
         return service.Update(client);

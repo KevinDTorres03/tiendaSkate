@@ -48,16 +48,6 @@ public class CategoryController {
         return service.save(category);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Category category, @PathVariable Integer id) {
-        try {
-            Category existCategory = service.get(id).get();
-            service.save(category);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
     @PutMapping("/update")
     public Category update(@RequestBody Category category) {
         return service.update(category);

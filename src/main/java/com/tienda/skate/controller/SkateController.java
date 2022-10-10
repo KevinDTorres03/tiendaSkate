@@ -48,17 +48,6 @@ public class SkateController {
     public SkateController() {
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Skate skate, @PathVariable Integer id) {
-        try {
-            Skate existSkate = service.get(id);//deberia ser un optional
-            service.save(skate);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
-
     @PutMapping("/update")
     public Skate update(@RequestBody Skate skate) {
         return service.update(skate);
