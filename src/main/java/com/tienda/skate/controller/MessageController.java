@@ -48,16 +48,6 @@ public class MessageController {
         return service.save(message);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<?> update(@RequestBody Message message, @PathVariable Integer id) {
-        try {
-            Message existMessage = service.get(id).get();
-            service.save(message);
-            return new ResponseEntity<>(HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
     @PutMapping("/update")
     public Message update(@RequestBody Message message) {
         return service.Update(message);
