@@ -1,10 +1,18 @@
 package com.tienda.skate.services;
 
 import com.tienda.skate.model.Reservation;
+import com.tienda.skate.model.dto.CountClient;
+import com.tienda.skate.model.dto.CountStatus;
 import com.tienda.skate.repository.ReservationRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,68 +25,101 @@ public class ReservationService {
     public ReservationService() {
     }
 
-    public List<Reservation> listAll() {
-        return reservationRepository.getAll();
+    @Query("SELECT c.client, COUNT(c.client) FROM Reservation AS c GROUP BY c.client ORDER BY COUNT(c.client) DESC")
+    public List<Object[]> countTotalReservationsByClients() {
+        return reservationRepository.countTotalReservationsByClients();
     }
 
-    public Optional<Reservation> get(int id) {
-        return reservationRepository.getReservation(id);
+    public List<Reservation> findAllByStartDateAfterAndDevolutionDateBefore(Date dateOne, Date dateTwo) {
+        return reservationRepository.findAllByStartDateAfterAndDevolutionDateBefore(dateOne, dateTwo);
     }
 
-    public Reservation save(Reservation reservacion) {
-        if (reservacion.getIdReservation() == 0) {
-            return reservationRepository.save(reservacion);
-        } else {
-            Optional<Reservation> a = reservationRepository.getReservation(reservacion.getIdReservation());
-            if (a.isPresent()) {
-                return a.get();
-            } else {
-                return reservationRepository.save(reservacion);
-            }
+    public List<Reservation> findAllByStatus(String status) {
+        return reservationRepository.findAllByStatus(status);
+    }
+
+    public <S extends Reservation> S save(S entity) {
+        return reservationRepository.save(entity);
+    }
+
+    public <S extends Reservation> Iterable<S> saveAll(Iterable<S> entities) {
+        return reservationRepository.saveAll(entities);
+    }
+
+    public void deleteAllById(Iterable<? extends Integer> integers) {
+        reservationRepository.deleteAllById(integers);
+    }
+
+    public void deleteAll(Iterable<? extends Reservation> entities) {
+        reservationRepository.deleteAll(entities);
+    }
+
+    public void deleteAll() {
+        reservationRepository.deleteAll();
+    }
+
+    public List<Reservation> getReservationPeriod(Date a, Date b) {
+        return reservationRepository.getReservationPeriod(a, b);
+    }
+
+    public List<Reservation> getReservationsByStatus(String status) {
+        return reservationRepository.getReservationsByStatus(status);
+    }
+
+    public Optional<Reservation> findById(Integer integer) {
+        return reservationRepository.findById(integer);
+    }
+
+    public boolean existsById(Integer integer) {
+        return reservationRepository.existsById(integer);
+    }
+
+    public Iterable<Reservation> findAll() {
+        return reservationRepository.findAll();
+    }
+
+    public Iterable<Reservation> findAllById(Iterable<Integer> integers) {
+        return reservationRepository.findAllById(integers);
+    }
+
+    public long count() {
+        return reservationRepository.count();
+    }
+
+    public void deleteById(Integer integer) {
+        reservationRepository.deleteById(integer);
+    }
+
+    public void delete(Reservation entity) {
+        reservationRepository.delete(entity);
+    }
+
+    public List<CountClient> getTopClients(){
+        return reservationRepository.getTopClients();
+    }
+
+    public List<Reservation> getReservationPeriod(String dateA, String dateB){
+        SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd");
+        Date a = new Date();
+        Date b = new Date();
+        try {
+            a = parser.parse(dateA);
+            b = parser.parse (dateB);
+
+        }catch (ParseException excepcion){
+            excepcion.printStackTrace();
+        }
+        if (a.before(b)){
+            return reservationRepository.getReservationPeriod(a, b);
+        }else{
+            return new ArrayList<>();
         }
     }
 
-    public Reservation Update(Reservation reservacion) {
-        if (reservacion.getIdReservation() != 0) {
-            Optional<Reservation> rs = reservationRepository.getReservation(reservacion.getIdReservation());
-            if (rs.isPresent()) {
-                if (reservacion.getStartDate() != null) {
-                    rs.get().setStartDate(reservacion.getStartDate());
-                }
-                if (reservacion.getDevolutionDate() != null) {
-                    rs.get().setDevolutionDate(reservacion.getDevolutionDate());
-                }
-                if (reservacion.getStatus() != null) {
-                    rs.get().setStatus(reservacion.getStatus());
-                }
-                if (reservacion.getScore() != null) {
-                    rs.get().setScore(reservacion.getScore());
-                }
-                if (reservacion.getSkate() != null) {
-                    rs.get().setSkate(reservacion.getSkate());
-                }
-                if (reservacion.getClient() != null) {
-                    rs.get().setClient(reservacion.getClient());
-                }
+    public CountStatus getReservationsStatus(){
+        List<Reservation> completed = reservationRepository.getReservationsByStatus("completed");
+        List<Reservation> cancelled = reservationRepository.getReservationsByStatus("cancelled");
 
-                reservationRepository.save(rs.get());
-                return rs.get();
-
-            } else {
-                return reservacion;
-            }
-        } else {
-            return reservacion;
-        }
-    }
-
-    public boolean delete(int id) {
-        boolean marca = false;
-        Optional<Reservation> a = reservationRepository.getReservation(id);
-        if (a.isPresent()) {
-            reservationRepository.delete(a.get());
-            marca = true;
-        }
-        return marca;
+        return new CountStatus((long) completed.size(), (long) cancelled.size());
     }
 }
