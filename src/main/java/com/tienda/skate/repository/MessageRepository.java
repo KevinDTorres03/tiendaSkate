@@ -1,6 +1,5 @@
 package com.tienda.skate.repository;
 
-import com.tienda.skate.model.Admin;
 import com.tienda.skate.model.Message;
 import com.tienda.skate.repository.interfaces.MessageRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
